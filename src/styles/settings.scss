@@ -5,14 +5,22 @@
  */
 
 // https://vuetifyjs.com/features/sass-variables/`
-// @use 'vuetify/settings' with (
-//   $color-pack: false
-// );
 
-:root {
-    --base-font: "Inter", "sans-serif";
-}
 
-* {
-    font-family: var(--base-font);
+@use 'vuetify/settings' as v with (
+  $body-font-family: ("Inter", sans-serif)
+);
+
+// class overrides using configurable vuetify sass variables
+
+.v-container--fluid {
+  padding: 0 12px;
+
+  @media (min-width: map-get(v.$grid-breakpoints, md)) {
+    padding: 0 64px;
+  }
+
+  @media (min-width: map-get(v.$grid-breakpoints, lg)) {
+    padding: 0 128px;
+  }
 }
