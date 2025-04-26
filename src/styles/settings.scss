@@ -6,7 +6,7 @@
 
 // https://vuetifyjs.com/features/sass-variables/`
 
-
+@use 'sass:map';
 @use 'vuetify/settings' as v with (
   $body-font-family: ("Inter", sans-serif)
 );
@@ -16,11 +16,11 @@
 .v-container--fluid {
   padding: 0 12px;
 
-  @media (min-width: map-get(v.$grid-breakpoints, md)) {
+  @media (min-width: map.get(v.$grid-breakpoints, md)) {
     padding: 0 64px;
   }
 
-  @media (min-width: map-get(v.$grid-breakpoints, lg)) {
+  @media (min-width: map.get(v.$grid-breakpoints, lg)) {
     padding: 0 128px;
   }
 }

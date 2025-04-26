@@ -20,10 +20,10 @@
 
     &__count {
         position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 24px;
-        height: 24px;
+        top: -40%;
+        right: -40%;
+        width: 20px;
+        height: 20px;
         display: flex;
         align-items: center;
         justify-content: center;

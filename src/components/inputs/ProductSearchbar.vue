@@ -1,10 +1,10 @@
 <template>
   <form class="product-searchbar" @submit.prevent>
     <label class="product-searchbar__label" for="product-searchbar">
-      <input id="product-searchbar" class="product-searchbar__input" placeholder="Search for products..." type="text">
+      <input id="product-searchbar" class="product-searchbar__input" placeholder="Search TicTac Shop" type="text">
     </label>
     <button class="product-searchbar__submit-button">
-      <v-icon color="white" icon="mdi-magnify" size="x-large" />
+      <v-icon color="white" icon="mdi-magnify" size="large" />
     </button>
   </form>
 </template>
@@ -59,7 +59,7 @@
 
     &__submit-button {
         margin: 8px;
-        padding: 8px;
+        padding: 6px;
         border-radius: 999px;
         background-color: rgb(var(--v-theme-primary));
         transition: background-color 0.1s;

@@ -9,10 +9,11 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./components/AppFooter.vue')['default']
-    AppHeader: typeof import('./components/AppHeader/AppHeader.vue')['default']
-    AppHeaderCart: typeof import('./components/AppHeader/AppHeaderCart.vue')['default']
-    AppHeaderThemeSwitcher: typeof import('./components/AppHeader/AppHeaderThemeSwitcher.vue')['default']
-    HelloWorld: typeof import('./components/HelloWorld.vue')['default']
+    AppHeader: typeof import('./components/app-header/AppHeader.vue')['default']
+    AppHeaderCart: typeof import('./components/app-header/AppHeaderCart.vue')['default']
+    ProductList: typeof import('./components/product-list/ProductList.vue')['default']
+    ProductListCard: typeof import('./components/product-list/ProductListCard.vue')['default']
+    ProductListCardSlider: typeof import('./components/product-list/ProductListCardSlider.vue')['default']
     ProductSearchbar: typeof import('./components/inputs/ProductSearchbar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
