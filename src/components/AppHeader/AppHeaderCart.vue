@@ -22,8 +22,8 @@
         position: absolute;
         top: -50%;
         right: -50%;
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
