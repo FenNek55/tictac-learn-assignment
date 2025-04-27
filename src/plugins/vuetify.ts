@@ -24,6 +24,14 @@ export default createVuetify({
           'primary-dark': '#B31445',
         },
       },
+      tictacDark: {
+        dark: true,
+        colors: {
+          primary: '#E02A63',
+          background: '#222',
+          'primary-dark': '#B31445',
+        },
+      },
     },
   },
 })
