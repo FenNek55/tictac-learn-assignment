@@ -7,7 +7,10 @@
         </RouterLink>
         <ProductSearchbar class="app-header__searchbar-desktop d-none d-md-flex" />
         <div class="app-header__right">
-          <AppHeaderCart />
+          <v-badge color="primary" :content="23">
+            <v-btn elevation="0" icon="mdi-cart" />
+          </v-badge>
+          <v-btn elevation="0" icon="mdi-brightness-6" @click="toggleTheme" />
           <v-avatar image="@/assets/images/placeholder_avatar.jpg" size="42" />
         </div>
       </div>
@@ -16,6 +19,16 @@
     <v-divider />
   </header>
 </template>
+
+<script lang="ts" setup>
+  import { useTheme } from 'vuetify'
+
+  const theme = useTheme()
+
+  const toggleTheme = () => {
+    theme.global.name.value = theme.global.current.value.dark ? 'tictac' : 'tictacDark'
+  }
+</script>
 
 <style lang="scss" scoped>
 .app-header {
@@ -40,7 +53,7 @@
 
   &__right {
     display: flex;
-    gap: 32px;
+    gap: 16px;
     align-items: center;
   }
 
