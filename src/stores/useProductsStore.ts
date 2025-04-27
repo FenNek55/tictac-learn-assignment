@@ -33,6 +33,21 @@ export const useProductsStore = defineStore('products', () => {
     }
   }
 
+  const fetchCategories = async () => {
+    areCategoriesLoading.value = true
+
+    try {
+      const res = await fetch('https://api.escuelajs.co/api/v1/categories')
+      const data = await res.json()
+
+      categories.value = data
+    } catch(error) {
+      console.error('Failed to load categories', error)
+    } finally {
+      areCategoriesLoading.value = false
+    }
+  }
+
   return {
     products,
     categories,
@@ -40,5 +55,6 @@ export const useProductsStore = defineStore('products', () => {
     areProductsLoading,
     areCategoriesLoading,
     fetchProducts,
+    fetchCategories,
   }
 })

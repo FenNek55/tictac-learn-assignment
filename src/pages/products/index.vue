@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <ProductList />
+    <ProductList class="mb-14" />
   </v-container>
 </template>
 
@@ -9,9 +9,10 @@
 
   const productsStore = useProductsStore()
 
-  const { fetchProducts } = productsStore
+  const { fetchProducts, fetchCategories } = productsStore
 
   onMounted(() => {
     fetchProducts()
+    fetchCategories()
   })
 </script>
