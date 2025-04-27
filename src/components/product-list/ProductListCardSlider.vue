@@ -1,8 +1,13 @@
 <template>
   <div ref="slider" class="card-img-slider">
-    <button v-show="!isFirstSlide" class="card-img-slider__button--prev" @click="goToPrev">
-      <v-icon>mdi-chevron-left</v-icon>
-    </button>
+    <v-btn
+      v-show="!isFirstSlide"
+      class="card-img-slider__button--prev"
+      density="compact"
+      icon="mdi-chevron-left"
+      size="large"
+      @click="goToPrev"
+    />
     <div
       class="card-img-slider__content"
       :style="{
@@ -16,9 +21,14 @@
         :src="url"
       />
     </div>
-    <button v-show="!isLastSlide" class="card-img-slider__button--next" @click="goToNext">
-      <v-icon>mdi-chevron-right</v-icon>
-    </button>
+    <v-btn
+      v-show="!isLastSlide"
+      class="card-img-slider__button--next"
+      density="compact"
+      icon="mdi-chevron-right"
+      size="large"
+      @click="goToNext"
+    />
   </div>
 </template>
 
@@ -88,15 +98,11 @@
         opacity: 0;
         position: absolute;
         top: 50%;
-        background-color: rgb(224, 224, 224);
+        transform: translateY(-50%);
         z-index: 1;
-        border-radius: 999px;
-        padding: 5px;
-        transition: opacity 0.1s, background-color 0.1s;
 
         &:focus, &:hover {
             opacity: 1;
-            background-color: white;
         }
 
         &--prev {

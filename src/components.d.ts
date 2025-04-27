@@ -15,6 +15,7 @@ declare module 'vue' {
     ProductList: typeof import('./components/product-list/ProductList.vue')['default']
     ProductListCard: typeof import('./components/product-list/ProductListCard.vue')['default']
     ProductListCardSlider: typeof import('./components/product-list/ProductListCardSlider.vue')['default']
+    ProductListCategories: typeof import('./components/product-list/ProductListCategories.vue')['default']
     ProductSearchbar: typeof import('./components/inputs/ProductSearchbar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

@@ -1,5 +1,11 @@
 <template>
-  <form class="product-searchbar" @submit.prevent>
+  <form
+    class="product-searchbar"
+    :class="[{
+      'product-searchbar--dark': isDark
+    }]"
+    @submit.prevent
+  >
     <label class="product-searchbar__label" for="product-searchbar">
       <input id="product-searchbar" class="product-searchbar__input" placeholder="Search TicTac Shop" type="text">
     </label>
@@ -8,6 +14,13 @@
     </button>
   </form>
 </template>
+
+<script lang="ts" setup>
+  import { useTheme } from 'vuetify'
+  const theme = useTheme()
+
+  const isDark = computed(() => theme.global.current.value.dark)
+</script>
 
 <style lang="scss" scoped>
 .product-searchbar {
@@ -30,6 +43,14 @@
         border: 1px solid rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
     }
 
+    &--dark {
+        box-shadow: none;
+
+        &:focus-within, &:hover {
+            box-shadow: none !important;
+        }
+    }
+
     &__label {
         cursor: pointer;
         width: 100%;
@@ -42,10 +63,10 @@
         font-weight: 500;
         width: 100%;
         padding-left: 16px;
-        color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+        color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));
 
         &::placeholder {
-            color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+            color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));
         }
 
         &:focus {
