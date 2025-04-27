@@ -7,6 +7,7 @@
       icon="mdi-chevron-left"
       size="large"
       @click="goToPrev"
+      @click.stop.prevent
     />
     <div
       class="card-img-slider__content"
@@ -18,8 +19,15 @@
         v-for="url in imgUrls"
         :key="url"
         class="card-img-slider__image"
-        :src="url"
-      />
+        :src="url + '123'"
+      >
+        <template #error>
+          <v-img
+            class="card-img-slider__image"
+            src="@/assets/images/no-img-placeholder.jpg"
+          />
+        </template>
+      </v-img>
     </div>
     <v-btn
       v-show="!isLastSlide"
@@ -28,6 +36,7 @@
       icon="mdi-chevron-right"
       size="large"
       @click="goToNext"
+      @click.stop.prevent
     />
   </div>
 </template>

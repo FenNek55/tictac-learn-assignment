@@ -5,7 +5,7 @@
         <RouterLink to="/">
           <v-img class="app-header__logo" src="@/assets/logo.svg" />
         </RouterLink>
-        <ProductSearchbar class="app-header__searchbar-desktop d-none d-md-flex" />
+        <ProductSearchbar v-model="titleFilter" class="app-header__searchbar-desktop d-none d-md-flex" @clear-input="onClearInput" @submit-search="onSearchSubmit" />
         <div class="app-header__right">
           <v-badge color="primary" :content="23">
             <v-btn elevation="0" icon="mdi-cart" />
@@ -14,16 +14,28 @@
           <v-avatar image="@/assets/images/placeholder_avatar.jpg" size="42" />
         </div>
       </div>
-      <ProductSearchbar class="app-header__searchbar-mobile d-flex d-md-none" />
+      <ProductSearchbar v-model="titleFilter" class="app-header__searchbar-mobile d-flex d-md-none" @clear-input="onClearInput" @submit-search="onSearchSubmit" />
     </v-container>
     <v-divider />
   </header>
 </template>
 
 <script lang="ts" setup>
+  import { useProductsStore } from '@/stores/useProductsStore'
   import { useTheme } from 'vuetify'
 
   const theme = useTheme()
+  const productsStore = useProductsStore()
+  const { fetchProducts } = productsStore
+  const { titleFilter } = storeToRefs(productsStore)
+
+  const onSearchSubmit = () => {
+    fetchProducts()
+  }
+
+  const onClearInput = () => {
+    fetchProducts()
+  }
 
   const toggleTheme = () => {
     theme.global.name.value = theme.global.current.value.dark ? 'tictac' : 'tictacDark'
