@@ -3,15 +3,21 @@ import type { Category, Product, ProductFilters } from '@/types'
 export const useProductsStore = defineStore('products', () => {
   const products = ref<Product[]>([])
   const categories = ref<Category[]>([])
-  const filters = ref<Partial<ProductFilters>>({
-    limit: 20,
-    offset: 0,
-  })
+
   const areProductsLoading = ref(false)
   const areCategoriesLoading = ref(false)
 
+  const titleFilter = ref<ProductFilters['title']>('')
+
+  const filters = computed(() => {
+    return {
+      title: titleFilter.value || null,
+    }
+  })
+
   const fetchProducts = async () => {
     areProductsLoading.value = true
+    products.value = []
 
     try {
       const query = new URLSearchParams()
@@ -54,6 +60,7 @@ export const useProductsStore = defineStore('products', () => {
     filters,
     areProductsLoading,
     areCategoriesLoading,
+    titleFilter,
     fetchProducts,
     fetchCategories,
   }
