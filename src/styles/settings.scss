@@ -17,10 +17,11 @@
   padding: 0 12px;
 
   @media (min-width: map.get(v.$grid-breakpoints, md)) {
-    padding: 0 64px;
+    padding: 0 24px;
   }
 
   @media (min-width: map.get(v.$grid-breakpoints, lg)) {
     padding: 0 128px;
+    max-width: 2200px;
   }
 }
