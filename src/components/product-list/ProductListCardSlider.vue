@@ -4,7 +4,6 @@
       <v-icon>mdi-chevron-left</v-icon>
     </button>
     <div
-      ref="sliderContent"
       class="card-img-slider__content"
       :style="{
         transform: `translateX(-${contentTransition}px)`
@@ -30,34 +29,40 @@
 
   const props = defineProps<Props>()
 
-  const currentSlide = ref(0)
   const slider = ref<HTMLDivElement | null>(null)
-  const sliderContent = ref<HTMLDivElement | null>(null)
+  const currentSlide = ref(0)
+  const sliderWidth = ref(0)
 
-  const contentTransition = computed(() => {
-    if(!slider.value) return 0
-    return slider.value.clientWidth * currentSlide.value
-  })
+  const readWidth = () => {
+    sliderWidth.value = slider.value?.clientWidth ?? 0
+  }
 
-  const isFirstSlide = computed(() => {
-    return currentSlide.value === 0
-  })
+  const contentTransition = computed(() => currentSlide.value * sliderWidth.value)
 
-  const isLastSlide = computed(() => {
-    return currentSlide.value === props.imgUrls.length - 1
-  })
+  const isFirstSlide = computed(() => currentSlide.value === 0)
+
+  const isLastSlide = computed(() => currentSlide.value === props.imgUrls.length - 1 )
 
   const goToPrev = () => {
-    if (currentSlide.value === 0) return
+    if (isFirstSlide.value) return
 
     currentSlide.value = currentSlide.value - 1
   }
 
   const goToNext = () => {
-    if (currentSlide.value === props.imgUrls.length - 1) return
+    if (isLastSlide.value) return
 
     currentSlide.value = currentSlide.value + 1
   }
+
+  onMounted(() => {
+    readWidth()
+    window.addEventListener('resize', readWidth)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', readWidth)
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -83,14 +88,15 @@
         opacity: 0;
         position: absolute;
         top: 50%;
-        background-color: white;
+        background-color: rgb(224, 224, 224);
         z-index: 1;
         border-radius: 999px;
         padding: 5px;
-        transition: opacity 0.1s;
+        transition: opacity 0.1s, background-color 0.1s;
 
-        &:focus {
+        &:focus, &:hover {
             opacity: 1;
+            background-color: white;
         }
 
         &--prev {

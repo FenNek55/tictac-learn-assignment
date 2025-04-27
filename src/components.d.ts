@@ -11,6 +11,7 @@ declare module 'vue' {
     AppFooter: typeof import('./components/AppFooter.vue')['default']
     AppHeader: typeof import('./components/app-header/AppHeader.vue')['default']
     AppHeaderCart: typeof import('./components/app-header/AppHeaderCart.vue')['default']
+    ColorPicker: typeof import('./components/inputs/ColorPicker.vue')['default']
     ProductList: typeof import('./components/product-list/ProductList.vue')['default']
     ProductListCard: typeof import('./components/product-list/ProductListCard.vue')['default']
     ProductListCardSlider: typeof import('./components/product-list/ProductListCardSlider.vue')['default']
