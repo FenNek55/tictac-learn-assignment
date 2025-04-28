@@ -4,7 +4,7 @@
     <v-skeleton-loader :loading="isLoading" type="subtitle">
       <v-breadcrumbs v-if="productInfo" class="ma-0 mb-8 pa-0" :items="['products', productInfo?.title]" />
     </v-skeleton-loader>
-    <v-row>
+    <v-row class="mb-8">
       <v-col cols="12" md="5" sm="10">
         <v-skeleton-loader height="500" :loading="isLoading" type="image">
           <v-carousel v-model:model-value="selectedPhoto">
@@ -39,57 +39,66 @@
         </v-skeleton-loader>
         <v-skeleton-loader :loading="isLoading" max-width="100" type="heading">
           <div class="d-flex align-center ga-1 mb-4">
-            <v-icon v-for="n in 4" :key="n" color="#ffb812">mdi-star</v-icon><v-icon class="opacity-20">mdi-star</v-icon><p class="text-body-2 font-weight-bold">4.14/5</p>
+            <v-rating
+              active-color="amber-darken-2"
+              hover
+              :length="5"
+              :model-value="4"
+              readonly
+              :size="32"
+            /><p class="text-body-2">4.14/5</p>
           </div>
         </v-skeleton-loader>
         <v-skeleton-loader :loading="isLoading" max-width="200">
-          <p class="mb-6 text-h5 font-weight-bold">${{ productInfo?.price }}</p>
+          <p class="mb-6 mr-4 text-h3 font-weight-bold">${{ productInfo?.price }}</p>
+          <p class="mb-6 text-h5 font-weight-regular opacity-40 text-decoration-line-through">${{ fakePromoPrice }}</p>
         </v-skeleton-loader>
         <v-divider class="mb-6" />
-        <h2 class="mb-2">Description</h2>
-        <v-skeleton-loader :loading="isLoading" type="paragraph">
+        <v-skeleton-loader :loading="isLoading" max-width="150" type="heading">
+          <h2 class="mb-2">Description</h2>
+        </v-skeleton-loader>
+        <v-skeleton-loader :loading="isLoading" type="paragraph, paragraph">
           <p class="text-body-1 mb-8">{{ productInfo?.description }}</p>
         </v-skeleton-loader>
-        <v-skeleton-loader :loading="isLoading" type="button">
-          <div>
-            <div class="mb-2">
-              <v-label>
-                Quantity
-              </v-label>
-            </div>
-            <div class="d-flex flex-sm-row flex-column ga-4 align-start align-sm-center">
-              <div>
-                <v-number-input
-                  v-model="quantity"
-                  class=""
-                  control-variant="split"
-                  density="comfortable"
-                  hide-details="auto"
-                  :hide-input="false"
-                  :inset="false"
-                  max-width="160"
-                  :min="1"
-                  :reverse="false"
-                  variant="outlined"
-                />
-              </div>
-              <v-btn
-                class="product-card__cart-btn"
-                color="primary"
-                elevation="0"
-                prepend-icon="mdi-cart-plus"
-                size="large"
-                @click.stop.prevent
-              >
-                Add to cart
-              </v-btn>
-            </div>
+        <div>
+          <div class="mb-2">
+            <v-label>
+              Quantity
+            </v-label>
           </div>
-        </v-skeleton-loader>
+          <div class="d-flex flex-sm-row flex-column ga-4 align-start align-sm-center">
+            <div>
+              <v-number-input
+                v-model="quantity"
+                class=""
+                control-variant="split"
+                density="comfortable"
+                hide-details="auto"
+                :hide-input="false"
+                :inset="false"
+                max-width="160"
+                :min="1"
+                :reverse="false"
+                variant="outlined"
+              />
+            </div>
+            <v-btn
+              class="product-card__cart-btn"
+              color="primary"
+              elevation="0"
+              prepend-icon="mdi-cart-plus"
+              size="large"
+              @click.stop.prevent
+            >
+              Add to cart
+            </v-btn>
+          </div>
+        </div>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
+        <v-divider class="mb-8" />
         <h2>See also:</h2>
       </v-col>
     </v-row>
@@ -116,6 +125,8 @@
   const selectedPhoto = ref(0)
   const quantity = ref(1)
 
+  const fakePromoPrice = computed(() => productInfo.value?.price ? productInfo.value.price - 10 : 0)
+
   const setSelectedPhoto = (index: number) => {
     selectedPhoto.value = index
   }
@@ -133,6 +144,7 @@
   }
 
   onMounted(async () => {
+    // could use 'load recommendations in real-life app'
     fetchProducts()
     await loadProduct(route.params.slug)
   })
