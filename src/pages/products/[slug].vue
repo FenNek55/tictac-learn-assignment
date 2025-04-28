@@ -147,9 +147,31 @@
     selectedPhoto.value = 0
   }
 
+  const initKeyboardControls = () => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        if (selectedPhoto.value > 0) {
+          selectedPhoto.value--
+        }
+      }
+      if (e.key === 'ArrowRight') {
+        if (selectedPhoto.value < (productInfo.value?.images.length || 0) - 1) {
+          selectedPhoto.value++
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    onUnmounted(() => {
+      window.removeEventListener('keydown', handleKeyDown)
+    })
+  }
+
   onMounted(async () => {
-    // could use 'load recommendations in real-life app'
+    // could use 'load recommendations' in real-life app
     fetchProducts()
+    initKeyboardControls()
     await loadProduct(route.params.slug)
   })
 

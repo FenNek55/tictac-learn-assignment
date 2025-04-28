@@ -26,11 +26,14 @@
   import { useTheme } from 'vuetify'
 
   const theme = useTheme()
+  const router = useRouter()
+
   const productsStore = useProductsStore()
   const { fetchProducts } = productsStore
   const { titleFilter } = storeToRefs(productsStore)
 
   const onSearchSubmit = debounce(() => {
+    router.push('/products')
     fetchProducts()
   }, 300)
 

@@ -1,8 +1,9 @@
 <template>
   <!-- A custom slider, just to show off the use of a composable and some custom logic. I use vuetify carousel in details page to show different aproach -->
-  <div ref="slider" class="card-img-slider">
+  <div ref="slider" aria-label="Product images carousel" class="card-img-slider" role="region">
     <v-btn
       v-show="!isFirstSlide"
+      aria-label="Previous image"
       class="card-img-slider__button--prev"
       density="compact"
       icon="mdi-chevron-left"
@@ -47,6 +48,7 @@
     </div>
     <v-btn
       v-show="!isLastSlide"
+      aria-label="Next image"
       class="card-img-slider__button--next"
       density="compact"
       icon="mdi-chevron-right"

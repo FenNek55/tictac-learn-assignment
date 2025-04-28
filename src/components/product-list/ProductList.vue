@@ -10,6 +10,10 @@
       />
       <div v-for="n in 6" :key="n" class="product-list__placeholder" />
     </div>
+    <div v-if="!areProductsLoading && products.length === 0" class="product-list__no-items">
+      <v-icon size="64">mdi-note-search-outline</v-icon>
+      <h1>Sorry, no items found!</h1>
+    </div>
     <div ref="sentinel" class="product-list__sentinel" />
   </div>
 </template>
@@ -73,6 +77,15 @@
       min-width: 220px;
       max-width: 300px;
     }
+  }
+
+  &__no-items {
+    opacity: 0.6;
+    margin: 0 auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <RouterLink
+    :aria-label="`View details of ${product.title} in ${product.category.name}`"
     class="product-card rounded-lg"
     :class="[{
       'product-card--dark': isDark
@@ -15,8 +16,9 @@
     <div class="product-card__content pa-3">
       <p class="text-caption product-card__category">{{ product.category.name }}</p>
       <h2 class="text-body-1 font-weight-light mb-2">{{ product.title }}</h2>
-      <p class="text-body-1 font-weight-bold mb-4">{{ product.price }}$</p>
+      <p class="text-body-1 font-weight-bold mb-4">${{ product.price }}</p>
       <v-btn
+        :aria-label="`Add ${ product.title } to cart`"
         class="product-card__cart-btn"
         color="primary"
         elevation="0"
@@ -33,6 +35,7 @@
       >
         <v-btn
           v-bind="props"
+          :aria-label="`Add ${ product.title } to wishlist`"
           class="product-card__like"
           :color="isHovering ? 'primary' : 'grey-lighten-2'"
           density="comfortable"

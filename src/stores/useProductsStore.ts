@@ -27,6 +27,7 @@ export const useProductsStore = defineStore('products', () => {
   })
 
   const fetchProducts = async () => {
+    reachedEnd.value = false
     areProductsLoading.value = true
     products.value = []
     currentPage.value = 0
