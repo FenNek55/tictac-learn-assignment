@@ -10,11 +10,11 @@
       />
       <div v-for="n in 6" :key="n" class="product-list__placeholder" />
     </div>
+    <div ref="sentinel" class="product-list__sentinel" />
     <div v-if="!areProductsLoading && products.length === 0" class="product-list__no-items">
       <v-icon size="64">mdi-note-search-outline</v-icon>
       <h1>Sorry, no items found!</h1>
     </div>
-    <div ref="sentinel" class="product-list__sentinel" />
   </div>
 </template>
 
