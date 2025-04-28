@@ -6,6 +6,7 @@
       aria-label="Previous image"
       class="card-img-slider__button--prev"
       density="compact"
+      :disabled="isFirstSlide"
       icon="mdi-chevron-left"
       size="large"
       @click="goToPrev"
@@ -48,9 +49,11 @@
     </div>
     <v-btn
       v-show="!isLastSlide"
+      :aria-disabled="isLastSlide"
       aria-label="Next image"
       class="card-img-slider__button--next"
       density="compact"
+      :disabled="isLastSlide"
       icon="mdi-chevron-right"
       size="large"
       @click="goToNext"
