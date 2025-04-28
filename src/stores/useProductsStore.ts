@@ -21,6 +21,14 @@ export const useProductsStore = defineStore('products', () => {
     }
   })
 
+  const errorMsg = ref<null | string>(null)
+  const setErrorMsg = (msg: string) => {
+    errorMsg.value = msg
+    window.setTimeout(() => {
+      errorMsg.value = null
+    }, 5000)
+  }
+
   const recommendedProducts = computed(() => {
     // placeholder recommended products logic
     return products.value.slice(0, 4) || []
@@ -46,6 +54,7 @@ export const useProductsStore = defineStore('products', () => {
 
       products.value = data
     } catch(error) {
+      setErrorMsg('Failed to fetch products')
       console.error('Failed to fetch products', error)
     } finally {
       areProductsLoading.value = false
@@ -59,6 +68,7 @@ export const useProductsStore = defineStore('products', () => {
 
       return data
     } catch(error) {
+      setErrorMsg('Failed to fetch product')
       console.error('Failed to fetch product ' + slug, error)
       return null
     }
@@ -73,6 +83,7 @@ export const useProductsStore = defineStore('products', () => {
 
       categories.value = data
     } catch(error) {
+      setErrorMsg('Failed to fetch categories')
       console.error('Failed to load categories', error)
     } finally {
       areCategoriesLoading.value = false
@@ -103,6 +114,7 @@ export const useProductsStore = defineStore('products', () => {
         products.value = [...products.value, ...data]
       }
     } catch(error) {
+      setErrorMsg('Failed to fetch next page of products')
       console.error('Failed to load next page of products', error)
     } finally {
       areProductsLoading.value = false
@@ -120,6 +132,8 @@ export const useProductsStore = defineStore('products', () => {
     recommendedProducts,
     perPage,
     currentPage,
+    errorMsg,
+    setErrorMsg,
     fetchProducts,
     fetchCategories,
     fetchSingleProduct,
