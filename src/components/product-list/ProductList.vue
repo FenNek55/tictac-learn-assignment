@@ -10,15 +10,44 @@
       />
       <div v-for="n in 6" :key="n" class="product-list__placeholder" />
     </div>
+    <div ref="sentinel" class="product-list__sentinel" />
   </div>
-
 </template>
 
 <script lang="ts" setup>
   import { useProductsStore } from '@/stores/useProductsStore';
 
   const productsStore = useProductsStore()
+  const { loadNextPage } = useProductsStore()
   const { products, areProductsLoading } = storeToRefs(productsStore)
+
+  const sentinel = ref<HTMLElement | null>(null)
+  let observer: IntersectionObserver | null = null
+
+  // Important - the api does not provide total amount of products, workaround in the store
+
+  onMounted(() => {
+    observer = new IntersectionObserver(entries => {
+      const entry = entries[0]
+      if (entry.isIntersecting && !areProductsLoading.value) {
+        loadNextPage()
+      }
+    }, {
+      root: null,
+      rootMargin: '100px',
+      threshold: 0.1,
+    })
+
+    if (sentinel.value) {
+      observer.observe(sentinel.value)
+    }
+  })
+
+  onUnmounted(() => {
+    if (observer && sentinel.value) {
+      observer.unobserve(sentinel.value)
+    }
+  })
 </script>
 
 <style lang="scss" scoped>

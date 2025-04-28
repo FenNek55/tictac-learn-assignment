@@ -125,7 +125,7 @@
   const selectedPhoto = ref(0)
   const quantity = ref(1)
 
-  const fakePromoPrice = computed(() => productInfo.value?.price ? productInfo.value.price - 10 : 0)
+  const fakePromoPrice = computed(() => productInfo.value?.price ? productInfo.value.price + 10 : 0)
 
   const setSelectedPhoto = (index: number) => {
     selectedPhoto.value = index
@@ -137,6 +137,10 @@
   const { recommendedProducts } = storeToRefs(productsStore)
 
   async function loadProduct (slug: string) {
+    window.scrollTo({
+      behavior: 'smooth',
+      top: 0,
+    })
     isLoading.value = true
     productInfo.value = await fetchSingleProduct(slug)
     isLoading.value = false

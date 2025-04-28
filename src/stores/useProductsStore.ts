@@ -7,11 +7,17 @@ export const useProductsStore = defineStore('products', () => {
   const areProductsLoading = ref(false)
   const areCategoriesLoading = ref(false)
 
+  const perPage = ref(20)
+  const currentPage = ref(0)
+  const reachedEnd = ref(false)
+
   const titleFilter = ref<ProductFilters['title']>('')
 
   const filters = computed(() => {
     return {
       title: titleFilter.value || null,
+      offset: currentPage.value * perPage.value,
+      limit: perPage.value,
     }
   })
 
@@ -23,6 +29,7 @@ export const useProductsStore = defineStore('products', () => {
   const fetchProducts = async () => {
     areProductsLoading.value = true
     products.value = []
+    currentPage.value = 0
 
     try {
       const query = new URLSearchParams()
@@ -71,6 +78,37 @@ export const useProductsStore = defineStore('products', () => {
     }
   }
 
+  const loadNextPage = async () => {
+    if (areProductsLoading.value || reachedEnd.value) return
+
+    areProductsLoading.value = true
+    currentPage.value++
+
+    try {
+      const query = new URLSearchParams()
+
+      Object.entries(filters.value).forEach(([key, val]) => {
+        if (val !== undefined && val !== null) {
+          query.append(key, val.toString())
+        }
+      })
+
+      const res = await fetch(`https://api.escuelajs.co/api/v1/products?${query.toString()}`)
+      const data = await res.json()
+
+      if (data.length === 0) {
+        reachedEnd.value = true
+      } else {
+        products.value = [...products.value, ...data]
+      }
+    } catch(error) {
+      console.error('Failed to load next page of products', error)
+    } finally {
+      areProductsLoading.value = false
+    }
+  }
+
+
   return {
     products,
     categories,
@@ -79,8 +117,11 @@ export const useProductsStore = defineStore('products', () => {
     areCategoriesLoading,
     titleFilter,
     recommendedProducts,
+    perPage,
+    currentPage,
     fetchProducts,
     fetchCategories,
     fetchSingleProduct,
+    loadNextPage,
   }
 })
