@@ -31,7 +31,7 @@ npm run build-only
 npm run preview
 ```
 
-You can also see the project [hosted on Vercel](https://tictac-learn-assignment.vercel.app/products).
+You can also see the project [hosted on Vercel](https://tictac-learn-assignment.vercel.app/).
 
 ## 📋 Assumptions
 
