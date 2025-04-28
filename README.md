@@ -1,81 +1,53 @@
-# Vuetify (Default)
+# TicTac Learn – Assignment Project
 
-This is the official scaffolding tool for Vuetify, designed to give you a head start in building your new Vuetify application. It sets up a base template with all the necessary configurations and standard directory structure, enabling you to begin development without the hassle of setting up the project from scratch.
+This project was created as part of a frontend developer assignment for TicTac.  
+It follows all required and optional tasks outlined in the assignment, with a few extra touches — such as a **dark mode**, inspired by our conversation with Dave about enabling theme switching in apps 😁
 
-## ❗️ Important Links
+The `/products` route uses **custom components** with reusable logic, while the `/products/[slug]` pages demonstrate a different approach, utilizing **Vuetify** components to showcase flexibility.
 
-- 📄 [Docs](https://vuetifyjs.com/)
-- 🚨 [Issues](https://issues.vuetifyjs.com/)
-- 🏬 [Store](https://store.vuetifyjs.com/)
-- 🎮 [Playground](https://play.vuetifyjs.com/)
-- 💬 [Discord](https://community.vuetifyjs.com)
+---
 
-## 💿 Install
+## 🚀 Running the Project
 
-Set up your project using your preferred package manager. Use the corresponding command to install the dependencies:
-
-| Package Manager                                                | Command        |
-|---------------------------------------------------------------|----------------|
-| [yarn](https://yarnpkg.com/getting-started)                   | `yarn install` |
-| [npm](https://docs.npmjs.com/cli/v7/commands/npm-install)     | `npm install`  |
-| [pnpm](https://pnpm.io/installation)                          | `pnpm install` |
-| [bun](https://bun.sh/#getting-started)                        | `bun install`  |
-
-After completing the installation, your environment is ready for Vuetify development.
-
-## ✨ Features
-
-- 🖼️ **Optimized Front-End Stack**: Leverage the latest Vue 3 and Vuetify 3 for a modern, reactive UI development experience. [Vue 3](https://v3.vuejs.org/) | [Vuetify 3](https://vuetifyjs.com/en/)
-- 🗃️ **State Management**: Integrated with [Pinia](https://pinia.vuejs.org/), the intuitive, modular state management solution for Vue.
-- 🚦 **Routing and Layouts**: Utilizes Vue Router for SPA navigation and vite-plugin-vue-layouts-next for organizing Vue file layouts. [Vue Router](https://router.vuejs.org/) | [vite-plugin-vue-layouts-next](https://github.com/loicduong/vite-plugin-vue-layouts-next)
-- 💻 **Enhanced Development Experience**: Benefit from TypeScript's static type checking and the ESLint plugin suite for Vue, ensuring code quality and consistency. [TypeScript](https://www.typescriptlang.org/) | [ESLint Plugin Vue](https://eslint.vuejs.org/)
-- ⚡ **Next-Gen Tooling**: Powered by Vite, experience fast cold starts and instant HMR (Hot Module Replacement). [Vite](https://vitejs.dev/)
-- 🧩 **Automated Component Importing**: Streamline your workflow with unplugin-vue-components, automatically importing components as you use them. [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)
-- 🛠️ **Strongly-Typed Vue**: Use vue-tsc for type-checking your Vue components, and enjoy a robust development experience. [vue-tsc](https://github.com/johnsoncodehk/volar/tree/master/packages/vue-tsc)
-
-These features are curated to provide a seamless development experience from setup to deployment, ensuring that your Vuetify application is both powerful and maintainable.
-
-## 💡 Usage
-
-This section covers how to start the development server and build your project for production.
-
-### Starting the Development Server
-
-To start the development server with hot-reload, run the following command. The server will be accessible at [http://localhost:3000](http://localhost:3000):
+First, install the dependencies:
 
 ```bash
-yarn dev
+npm install
 ```
 
-(Repeat for npm, pnpm, and bun with respective commands.)
-
-> Add NODE_OPTIONS='--no-warnings' to suppress the JSON import warnings that happen as part of the Vuetify import mapping. If you are on Node [v21.3.0](https://nodejs.org/en/blog/release/v21.3.0) or higher, you can change this to NODE_OPTIONS='--disable-warning=5401'. If you don't mind the warning, you can remove this from your package.json dev script.
-
-### Building for Production
-
-To build your project for production, use:
+Then, run the development server:
 
 ```bash
-yarn build
+npm run dev
 ```
 
-(Repeat for npm, pnpm, and bun with respective commands.)
+Or build and run the local preview
 
-Once the build process is completed, your application will be ready for deployment in a production environment.
+```bash
+npm run build-only
+```
 
-## 💪 Support Vuetify Development
+```bash
+npm run preview
+```
 
-This project is built with [Vuetify](https://vuetifyjs.com/en/), a UI Library with a comprehensive collection of Vue components. Vuetify is an MIT licensed Open Source project that has been made possible due to the generous contributions by our [sponsors and backers](https://vuetifyjs.com/introduction/sponsors-and-backers/). If you are interested in supporting this project, please consider:
+You can also see the project [hosted on Vercel](https://tictac-learn-assignment.vercel.app/products).
 
-- [Requesting Enterprise Support](https://support.vuetifyjs.com/)
-- [Sponsoring John on Github](https://github.com/users/johnleider/sponsorship)
-- [Sponsoring Kael on Github](https://github.com/users/kaelwd/sponsorship)
-- [Supporting the team on Open Collective](https://opencollective.com/vuetify)
-- [Becoming a sponsor on Patreon](https://www.patreon.com/vuetify)
-- [Becoming a subscriber on Tidelift](https://tidelift.com/subscription/npm/vuetify)
-- [Making a one-time donation with Paypal](https://paypal.me/vuetify)
+## 📋 Assumptions
 
-## 📑 License
-[MIT](http://opensource.org/licenses/MIT)
+- I chose to enable filtering by title after reviewing the API structure.
+- Filters are applied on button click (rather than live as the user types), assuming a typical online shop behaviour where userss finalize their filters before applying.
+- Since debounce was listed as nice-to-have, I've added it to the searchbar, even though it would fit an on-type approach better.
+- In a production app, i would assssume that we want more complex caching (for example - using TanStack Query). In this project I didn't implement any caching beyond default browser behaviour, as it was not stated in the requirements.
+- I assumed that infinite scroll would be acceptable given the small number of products. In a real-world application with more data, pagination would likely be a better choice.
+- Filters are stored in the Pinia store. In a production app, it would also be recommended to reflect them in URL query parameters to allow sharing or bookmarking filtered results.
+- I made some basic efforts to showcase accessibility features (aria, keyboard controls for carousel).
 
-Copyright (c) 2016-present Vuetify, LLC
+## 🎨 Design Approach
+
+- I drew inspiration from Airbnb's design language, focusing on subtle shadows, generous white space, and a clean, modern aesthetic.
+- Since Vuetify is primarily based on Material Design, its visual style differs slightly. If the project were to be expanded, it would be a good idea to customize Vuetify's theme and default variables to better align with the overall design direction.
+- I adapted the UI to an e-commerce style layout, making sure that the product pressentation feels natural. I also adjusted the design to a limited amount of data that we want to showcase to the user (with more data, we could increase the density and change approach to the visual hierarchy).
+- I've added some placeholder functionalities (like rating or cart) to make the layout feel fuller and more complete.
+- With custom components, I made sure to use Vuetify-friendly approach to styling and general structure. This makes the dark theme work out of the box.
+- I used default color scheme of Vuetify with a primary color defined in the theme, it could use further adjustments if needed to suit the brand image better.
