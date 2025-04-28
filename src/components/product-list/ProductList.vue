@@ -42,7 +42,7 @@
   @media (min-width: map.get(v.$grid-breakpoints, md)) {
     & > * {
       min-width: 220px;
-      max-width: 260px;
+      max-width: 300px;
     }
   }
 }

@@ -15,6 +15,11 @@ export const useProductsStore = defineStore('products', () => {
     }
   })
 
+  const recommendedProducts = computed(() => {
+    // placeholder recommended products logic
+    return products.value.slice(0, 4) || []
+  })
+
   const fetchProducts = async () => {
     areProductsLoading.value = true
     products.value = []
@@ -36,6 +41,18 @@ export const useProductsStore = defineStore('products', () => {
       console.error('Failed to fetch products', error)
     } finally {
       areProductsLoading.value = false
+    }
+  }
+
+  const fetchSingleProduct = async (slug: string): Promise<Product | null> => {
+    try {
+      const res = await fetch(`https://api.escuelajs.co/api/v1/products/slug/${slug}`)
+      const data = await res.json()
+
+      return data
+    } catch(error) {
+      console.error('Failed to fetch product ' + slug, error)
+      return null
     }
   }
 
@@ -61,7 +78,9 @@ export const useProductsStore = defineStore('products', () => {
     areProductsLoading,
     areCategoriesLoading,
     titleFilter,
+    recommendedProducts,
     fetchProducts,
     fetchCategories,
+    fetchSingleProduct,
   }
 })

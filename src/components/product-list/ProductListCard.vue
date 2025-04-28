@@ -72,6 +72,7 @@
   transition: box-shadow 0.1s;
   display: flex;
   flex-direction: column;
+  background-color: rgb(var(--v-theme-surface));
 
   &__content {
     display: flex;
@@ -86,7 +87,6 @@
   &--dark {
     &:hover {
       box-shadow: none;
-      border: 1px solid rgba(var(--grey-lighten-6), 1);
     }
   }
 
