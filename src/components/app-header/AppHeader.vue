@@ -21,6 +21,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { debounce } from 'lodash'
   import { useProductsStore } from '@/stores/useProductsStore'
   import { useTheme } from 'vuetify'
 
@@ -29,17 +30,18 @@
   const { fetchProducts } = productsStore
   const { titleFilter } = storeToRefs(productsStore)
 
-  const onSearchSubmit = () => {
+  const onSearchSubmit = debounce(() => {
     fetchProducts()
-  }
+  }, 300)
 
-  const onClearInput = () => {
+  const onClearInput = debounce(() => {
     fetchProducts()
-  }
+  }, 300)
 
   const toggleTheme = () => {
     theme.global.name.value = theme.global.current.value.dark ? 'tictac' : 'tictacDark'
   }
+
 </script>
 
 <style lang="scss" scoped>
