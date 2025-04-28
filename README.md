@@ -42,6 +42,7 @@ You can also see the project [hosted on Vercel](https://tictac-learn-assignment.
 - I assumed that infinite scroll would be acceptable given the small number of products. In a real-world application with more data, pagination would likely be a better choice.
 - Filters are stored in the Pinia store. In a production app, it would also be recommended to reflect them in URL query parameters to allow sharing or bookmarking filtered results.
 - I made some basic efforts to showcase accessibility features (aria, keyboard controls for carousel).
+- I used simple git commit messsages and worked mainly on main branch, but when working in a team it would be a nice idea to add some basic messsage structure (like feat/, fix/, chore/) and feature/env branches.
 
 ## 🎨 Design Approach
 
