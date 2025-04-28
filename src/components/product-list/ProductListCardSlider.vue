@@ -1,4 +1,5 @@
 <template>
+  <!-- A custom slider, just to show off the use of a composable and some custom logic. I use vuetify carousel in details page to show different aproach -->
   <div ref="slider" class="card-img-slider">
     <v-btn
       v-show="!isFirstSlide"
@@ -10,6 +11,7 @@
       @click.stop.prevent
     />
     <div
+      ref="swipeContainer"
       class="card-img-slider__content"
       :style="{
         transform: `translateX(-${contentTransition}px)`
@@ -18,16 +20,30 @@
       <v-img
         v-for="url in imgUrls"
         :key="url"
+        alt="Product preview"
         class="card-img-slider__image"
-        :src="url + '123'"
+        cover
+        :src="url"
       >
         <template #error>
-          <v-img
-            class="card-img-slider__image"
-            src="@/assets/images/no-img-placeholder.jpg"
-          />
+          <div
+            class="card-img-slider__error-container"
+          >
+            <img
+              alt="No image available"
+              class="card-img-slider__error-image"
+              src="/public-images/no-img-placeholder.jpg"
+            >
+          </div>
         </template>
       </v-img>
+      <v-img
+        v-if="!imgUrls.length"
+        alt="No image available"
+        class="card-img-slider__image"
+        cover
+        src="/public-images/no-img-placeholder.jpg"
+      />
     </div>
     <v-btn
       v-show="!isLastSlide"
@@ -42,6 +58,8 @@
 </template>
 
 <script lang="ts" setup>
+  import { useSwipe } from '@/composables/useSwipe';
+
   interface Props {
     imgUrls: string[]
   }
@@ -51,6 +69,7 @@
   const slider = ref<HTMLDivElement | null>(null)
   const currentSlide = ref(0)
   const sliderWidth = ref(0)
+  const swipeContainer = ref<HTMLElement | null>(null)
 
   const readWidth = () => {
     sliderWidth.value = slider.value?.clientWidth ?? 0
@@ -74,6 +93,8 @@
     currentSlide.value = currentSlide.value + 1
   }
 
+  useSwipe(swipeContainer, goToNext, goToPrev)
+
   onMounted(() => {
     readWidth()
     window.addEventListener('resize', readWidth)
@@ -85,6 +106,9 @@
 </script>
 
 <style lang="scss" scoped>
+@use 'sass:map';
+@use 'vuetify/settings' as v;
+
 .card-img-slider {
     $root: &;
     aspect-ratio: 1/1;
@@ -101,10 +125,11 @@
         transition: transform 0.2s;
         display: flex;
         align-items: stretch;
+        height: 100%;
     }
 
     &__button {
-        opacity: 0;
+        opacity: 1;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -112,6 +137,10 @@
 
         &:focus, &:hover {
             opacity: 1;
+        }
+
+        @media (min-width: map.get(v.$grid-breakpoints, md)) {
+          opacity: 0;
         }
 
         &--prev {
@@ -130,6 +159,21 @@
     &__image {
         height: 100%;
         width: 100%;
+    }
+
+    .card-img-slider__error-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #eee;
+    }
+
+    .card-img-slider__error-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
     }
 }
 </style>
