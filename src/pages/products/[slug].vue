@@ -8,7 +8,15 @@
       <v-col cols="12" md="5" sm="10">
         <v-skeleton-loader height="500" :loading="isLoading" type="image">
           <v-carousel v-model:model-value="selectedPhoto">
-            <v-carousel-item v-for="imgUrl in productInfo?.images" :key="imgUrl" cover :src="imgUrl" />
+            <v-carousel-item v-for="imgUrl in productInfo?.images" :key="imgUrl" cover :src="imgUrl">
+              <template #error>
+                <img
+                  alt="No image available"
+                  class="card-img-slider__error-image"
+                  src="/public-images/no-img-placeholder.jpg"
+                >
+              </template>
+            </v-carousel-item>
           </v-carousel>
         </v-skeleton-loader>
       </v-col>
