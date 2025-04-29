@@ -24,7 +24,7 @@
         elevation="0"
         prepend-icon="mdi-cart-plus"
         size="small"
-        @click.stop.prevent
+        @click.stop.prevent="addItemToCart(product)"
       >
         Add to cart
       </v-btn>
@@ -52,10 +52,12 @@
 <script lang="ts" setup>
   import type { Product } from '@/types';
   import { useTheme } from 'vuetify'
+  import { useCartStore } from '@/stores/useCartStore';
 
   const theme = useTheme()
-
   const isDark = computed(() => theme.global.current.value.dark)
+
+  const { addItemToCart } = useCartStore()
 
   interface Props {
     product: Product
@@ -107,6 +109,11 @@
     right: 12px;
     z-index: 5;
     opacity: 1;
+    transition: transform 0.1s, opacity 0.1s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
 
     @media (min-width: map.get(v.$grid-breakpoints, md)) {
       opacity: 0;

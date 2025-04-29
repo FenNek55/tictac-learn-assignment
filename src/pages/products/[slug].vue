@@ -91,12 +91,13 @@
               />
             </div>
             <v-btn
+              v-if="productInfo"
               class="product-card__cart-btn"
               color="primary"
               elevation="0"
               prepend-icon="mdi-cart-plus"
               size="large"
-              @click.stop.prevent
+              @click.stop.prevent="addItemToCart(productInfo, quantity)"
             >
               Add to cart
             </v-btn>
@@ -126,12 +127,15 @@
 
 <script lang="ts" setup>
   import { useProductsStore } from '@/stores/useProductsStore';
+  import { useCartStore } from '@/stores/useCartStore';
   import type { Product } from '@/types';
 
   const productInfo = ref<Product | null>(null)
   const isLoading = ref(true)
   const selectedPhoto = ref(0)
   const quantity = ref(1)
+
+  const { addItemToCart } = useCartStore()
 
   const fakePromoPrice = computed(() => productInfo.value?.price ? productInfo.value.price + 10 : 0)
 
@@ -177,7 +181,7 @@
   }
 
   onMounted(async () => {
-    // could use 'load recommendations' in real-life app
+    // could use 'fetch recommendations' in real-life app
     fetchProducts()
     initKeyboardControls()
     await loadProduct(route.params.slug)

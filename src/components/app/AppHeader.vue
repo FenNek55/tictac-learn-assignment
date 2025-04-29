@@ -7,7 +7,7 @@
         </RouterLink>
         <ProductSearchbar v-model="titleFilter" class="app-header__searchbar-desktop d-none d-md-flex" @clear-input="onClearInput" @submit-search="onSearchSubmit" />
         <div class="app-header__right">
-          <v-badge color="primary" :content="23">
+          <v-badge color="primary" :content="numberOfItems">
             <v-btn elevation="0" icon="mdi-cart" />
           </v-badge>
           <v-btn elevation="0" icon="mdi-brightness-6" @click="toggleTheme" />
@@ -23,6 +23,7 @@
 <script lang="ts" setup>
   import { debounce } from 'lodash'
   import { useProductsStore } from '@/stores/useProductsStore'
+  import { useCartStore } from '@/stores/useCartStore'
   import { useTheme } from 'vuetify'
 
   const theme = useTheme()
@@ -31,6 +32,8 @@
   const productsStore = useProductsStore()
   const { fetchProducts } = productsStore
   const { titleFilter } = storeToRefs(productsStore)
+
+  const { numberOfItems } = storeToRefs(useCartStore())
 
   const onSearchSubmit = debounce(() => {
     router.push('/products')
