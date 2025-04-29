@@ -20,38 +20,21 @@
 
 <script lang="ts" setup>
   import { useProductsStore } from '@/stores/useProductsStore';
+  import { useIntersectionObserver } from '@/composables/useIntersectionObserver';
 
   const productsStore = useProductsStore()
   const { loadNextPage } = useProductsStore()
   const { products, areProductsLoading } = storeToRefs(productsStore)
 
-  const sentinel = ref<HTMLElement | null>(null)
-  let observer: IntersectionObserver | null = null
-
-  // Important - the api does not provide total amount of products, workaround in the store
-
-  onMounted(() => {
-    observer = new IntersectionObserver(entries => {
-      const entry = entries[0]
-      if (entry.isIntersecting && !areProductsLoading.value) {
-        loadNextPage()
-      }
-    }, {
-      root: null,
-      rootMargin: '100px',
-      threshold: 0.1,
-    })
-
-    if (sentinel.value) {
-      observer.observe(sentinel.value)
+  const { target: sentinel } = useIntersectionObserver(() => {
+    if (!areProductsLoading.value) {
+      loadNextPage();
     }
-  })
-
-  onUnmounted(() => {
-    if (observer && sentinel.value) {
-      observer.unobserve(sentinel.value)
-    }
-  })
+  }, {
+    root: null,
+    rootMargin: '100px',
+    threshold: 0.1,
+  });
 </script>
 
 <style lang="scss" scoped>
