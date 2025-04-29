@@ -68,41 +68,43 @@
         <v-skeleton-loader :loading="isLoading" type="paragraph, paragraph">
           <p class="text-body-1 mb-8">{{ productInfo?.description }}</p>
         </v-skeleton-loader>
-        <div>
-          <div class="mb-2">
-            <v-label>
-              Quantity
-            </v-label>
-          </div>
-          <div class="d-flex flex-sm-row flex-column ga-4 align-start align-sm-center">
-            <div>
-              <v-number-input
-                v-model="quantity"
-                class=""
-                control-variant="split"
-                density="comfortable"
-                hide-details="auto"
-                :hide-input="false"
-                :inset="false"
-                max-width="160"
-                :min="1"
-                :reverse="false"
-                variant="outlined"
-              />
+        <v-skeleton-loader :loading="isLoading" type="button" width="200">
+          <div>
+            <div class="mb-2">
+              <v-label>
+                Quantity
+              </v-label>
             </div>
-            <v-btn
-              v-if="productInfo"
-              class="product-card__cart-btn"
-              color="primary"
-              elevation="0"
-              prepend-icon="mdi-cart-plus"
-              size="large"
-              @click.stop.prevent="addItemToCart(productInfo, quantity)"
-            >
-              Add to cart
-            </v-btn>
+            <div class="d-flex flex-sm-row flex-column ga-4 align-start align-sm-center">
+              <div>
+                <v-number-input
+                  v-model="quantity"
+                  class=""
+                  control-variant="split"
+                  density="comfortable"
+                  hide-details="auto"
+                  :hide-input="false"
+                  :inset="false"
+                  max-width="160"
+                  :min="1"
+                  :reverse="false"
+                  variant="outlined"
+                />
+              </div>
+              <v-btn
+                v-if="productInfo"
+                class="product-card__cart-btn"
+                color="primary"
+                elevation="0"
+                prepend-icon="mdi-cart-plus"
+                size="large"
+                @click.stop.prevent="addItemToCart(productInfo, quantity)"
+              >
+                Add to cart
+              </v-btn>
+            </div>
           </div>
-        </div>
+        </v-skeleton-loader>
       </v-col>
     </v-row>
     <v-row>
