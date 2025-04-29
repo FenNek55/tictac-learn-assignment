@@ -1,6 +1,6 @@
 <template>
   <header class="app-header">
-    <v-container class="pt-6 mb-6" fluid max-width="2000">
+    <v-container class="pt-6 pb-6" fluid max-width="2000">
       <div class="app-header__content mb-4 mb-md-0">
         <RouterLink to="/">
           <v-img class="app-header__logo" src="@/assets/logo.svg" />
