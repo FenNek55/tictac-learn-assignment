@@ -41,7 +41,7 @@
           density="comfortable"
           elevation="1"
           icon="mdi-heart"
-          variant="text"
+          variant="flat"
           @click.stop.prevent
         />
       </template>
@@ -65,7 +65,11 @@
 </script>
 
 <style lang="scss" scoped>
+@use 'vuetify/settings' as v;
+@use "sass:map";
+
 .product-card {
+  $root: &;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
@@ -83,12 +87,16 @@
     flex-grow: 1;
   }
 
-  &:hover {
+  &:hover, &:focus {
     box-shadow: 2px 2px 7px rgba(var(--v-theme-on-surface), 0.3);
+
+    #{$root}__like {
+      opacity: 1;
+    }
   }
 
   &--dark {
-    &:hover {
+    &:hover, &:focus {
       box-shadow: none;
     }
   }
@@ -98,6 +106,11 @@
     top: 12px;
     right: 12px;
     z-index: 5;
+    opacity: 1;
+
+    @media (min-width: map.get(v.$grid-breakpoints, md)) {
+      opacity: 0;
+    }
   }
 
   &__cart-btn {
