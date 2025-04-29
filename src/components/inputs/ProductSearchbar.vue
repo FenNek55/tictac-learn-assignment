@@ -93,7 +93,7 @@
   &__input {
     font-weight: 500;
     width: 100%;
-    padding-left: 16px;
+    padding-left: 24px;
     color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));
 
     &::placeholder {
