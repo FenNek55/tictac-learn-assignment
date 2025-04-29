@@ -4,14 +4,28 @@
     <v-main class="default-layout__content">
       <RouterView />
       <v-snackbar
-        v-model="isSnackbarVisible"
+        v-model="isErrorVisible"
         color="error"
       >
         {{ errorMsg }}
         <template #actions>
           <v-btn
             variant="plain"
-            @click="isSnackbarVisible = false"
+            @click="isErrorVisible = false"
+          >
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
+      <v-snackbar
+        v-model="isSuccessVisible"
+        color="success"
+      >
+        Item added to cart!
+        <template #actions>
+          <v-btn
+            variant="plain"
+            @click="isSuccessVisible = false"
           >
             Close
           </v-btn>
@@ -23,14 +37,22 @@
 
 <script lang="ts" setup>
   import { useProductsStore } from '@/stores/useProductsStore'
+  import { useCartStore } from '@/stores/useCartStore'
 
   const { errorMsg } = storeToRefs(useProductsStore())
-  const isSnackbarVisible = ref(false)
+  const { numberOfItems } = storeToRefs(useCartStore())
+
+  const isErrorVisible = ref(false)
+  const isSuccessVisible = ref(false)
 
   watch(errorMsg, newMsg => {
     if (newMsg) {
-      isSnackbarVisible.value = true
+      isErrorVisible.value = true
     }
+  })
+
+  watch(numberOfItems, () => {
+    isSuccessVisible.value = true
   })
 </script>
 
